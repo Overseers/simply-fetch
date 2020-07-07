@@ -1,0 +1,21 @@
+{
+  "name": "simply-fetch",
+  "version": "0.0.1",
+  "description": "Fetch wrapper to simplify the interface and the output.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Overseers/simply-fetch.git"
+  },
+  "author": "CrypticSafe5",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Overseers/simply-fetch/issues"
+  },
+  "homepage": "https://github.com/Overseers/simply-fetch#readme",
+  "dependencies": {
+    "form-data": "^3.0.0",
+    "node-fetch": "^2.6.0"
+  }
+}
