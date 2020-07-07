@@ -1,9 +1,13 @@
-import fetch from 'node-fetch';
+import nodeFetch from 'node-fetch';
 import FormData from 'form-data';
+import {
+    REQUEST_OBJECT,
+    REQUEST_OBJECT_FORMDATA,
+    REQUEST_OUTPUT
+} from './types';
 
-export default function fetch(requestObject) {
+export default function fetch(requestObject: REQUEST_OBJECT) {
     return new Promise((resolve, reject) => {
-        let output = {};
         let { url, body } = requestObject;
         const { method, headers, qs, formData, agent } = requestObject;
         if (!url) return reject('Bad request object');
@@ -13,7 +17,7 @@ export default function fetch(requestObject) {
             Object.keys(qs).forEach((e, i) => {
                 url += (!i) ? '?' : '&';
                 if (Array.isArray(qs[e])) {
-                    qs[e].forEach((e1, i1) => {
+                    (<string[]>qs[e]).forEach((e1, i1) => {
                         url += `${(!i1) ? '' : '&'}${e}=${qs[e][e1]}`;
                     });
                 } else {
@@ -25,7 +29,7 @@ export default function fetch(requestObject) {
             let form = new FormData();
             Object.keys(formData).forEach((e) => {
                 if (e === 'files') {
-                    formData[e].forEach((e1) => {
+                    (<REQUEST_OBJECT_FORMDATA>formData)[e].forEach((e1) => {
                         form.append(
                             'file',
                             e1.value,
@@ -41,7 +45,7 @@ export default function fetch(requestObject) {
             });
             body = form;
         }
-        return fetch(
+        return nodeFetch(
             url,
             {
                 method,
@@ -50,17 +54,21 @@ export default function fetch(requestObject) {
                 agent
             },
         ).then((response) => {
-            output.status = response.status;
-            output.headers = response.headers;
-            let body = '';
+            let body: string = '';
             response.body.setEncoding('utf8');
             response.body.on('data', (data) => { body += data; });
             response.body.on('end', () => {
-                try {
-                    output.body = JSON.parse(body);
-                } catch (err) {
-                    output.body = body;
-                }
+                const output: REQUEST_OUTPUT = {
+                    status: response.status,
+                    headers: response.headers,
+                    body: (() => {
+                        try {
+                            return JSON.parse(body);
+                        } catch (err) {
+                            return body;
+                        }
+                    })()
+                };
                 return (output.status < 400) ? resolve(output) : reject(output);
             });
             response.body.on('error', (err) => console.log('STREAM ERROR: ', err));
