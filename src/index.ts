@@ -6,7 +6,7 @@ import {
     REQUEST_OUTPUT
 } from './types';
 
-export default function fetch(requestObject: REQUEST_OBJECT) {
+export function fetch(requestObject: REQUEST_OBJECT) {
     return new Promise((resolve, reject) => {
         let { url, body } = requestObject;
         const { method, headers, qs, formData, agent } = requestObject;

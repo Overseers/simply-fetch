@@ -13,7 +13,9 @@
     "npm:version:minor": "npm version minor && git add package.json && git push origin master --tags",
     "npm:version:major": "npm version major && git add package.json && git push origin master --tags",
     "npm:publish": "npm publish",
-    "npm:publish:push": "run-s build:prod npm:version:major npm:publish"
+    "release:patch": "run-s build:prod npm:version:patch npm:publish",
+    "release:minor": "run-s build:prod npm:version:minor npm:publish",
+    "release:major": "run-s build:prod npm:version:major npm:publish"
   },
   "repository": {
     "type": "git",
@@ -28,7 +30,7 @@
     "access": "public"
   },
   "homepage": "https://github.com/Overseers/simply-fetch#readme",
-  "peerDependencies": {
+  "dependencies": {
     "form-data": "^3.0.0",
     "node-fetch": "^2.6.0"
   },
