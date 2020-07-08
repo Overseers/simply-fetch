@@ -1,6 +1,6 @@
 {
-  "name": "simply-fetch",
-  "version": "3.0.0",
+  "name": "@overseers/simply-fetch",
+  "version": "0.0.1",
   "description": "Fetch wrapper to simplify the interface, the output, and bring back some of the comforts of request.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,7 +13,7 @@
     "npm:version:minor": "npm version minor && git add package.json && git push origin master --tags",
     "npm:version:major": "npm version major && git add package.json && git push origin master --tags",
     "npm:publish": "npm publish",
-    "publish": "run-s build:prod npm:version:major npm:publish"
+    "npm:publish:push": "run-s build:prod npm:version:major npm:publish"
   },
   "repository": {
     "type": "git",
@@ -28,7 +28,7 @@
     "access": "public"
   },
   "homepage": "https://github.com/Overseers/simply-fetch#readme",
-  "dependencies": {
+  "peerDependencies": {
     "form-data": "^3.0.0",
     "node-fetch": "^2.6.0"
   },
