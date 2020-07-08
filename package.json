@@ -1,7 +1,7 @@
 {
   "name": "simply-fetch",
   "version": "0.0.1",
-  "description": "Fetch wrapper to simplify the interface and the output.",
+  "description": "Fetch wrapper to simplify the interface, the output, and bring back some of the comforts of request.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -9,11 +9,11 @@
     "build:prod": "tsc",
     "build:dev": "tsc -w",
     "clean": "rimraf dist/",
-    "npm:version:patch": "npm version patch --no-git-tag-version",
-    "npm:version:minor": "npm version patch --no-git-tag-version",
-    "npm:version:major": "npm version patch --no-git-tag-version",
+    "npm:version:patch": "npm version patch && git add package.json && git push origin master --tags",
+    "npm:version:minor": "npm version minor && git add package.json && git push origin master --tags",
+    "npm:version:major": "npm version major && git add package.json && git push origin master --tags",
     "npm:publish": "npm publish",
-    "publish": "run-s build:prod npm:version:bump npm:publish"
+    "publish": "run-s build:prod npm:version:major npm:publish"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,9 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Overseers/simply-fetch/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "homepage": "https://github.com/Overseers/simply-fetch#readme",
   "dependencies": {

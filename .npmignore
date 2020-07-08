@@ -1,5 +1,6 @@
 node_modules/*
-dist/*
+src/*
 toolbox/*
+tsconfig.json
+.gitignore
 .DS_Store
-.npm
